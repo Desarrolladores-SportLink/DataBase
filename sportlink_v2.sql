@@ -1,16 +1,16 @@
 CREATE TABLE usuario (
     id_usuario     SERIAL PRIMARY KEY,
-    nombre         VARCHAR(100) NOT NULL,
-    apellidos      VARCHAR(100) NOT NULL,
-    username       VARCHAR(50)  UNIQUE NOT NULL,
-    correo         VARCHAR(150) UNIQUE NOT NULL,
-    password       VARCHAR(255) NOT NULL,
-    rol            VARCHAR(20)  NOT NULL CHECK (rol IN ('alumno','maestro','escuela')),
+    nombre          VARCHAR(100) NOT NULL,
+    apellidos       VARCHAR(100) NOT NULL,
+    username        VARCHAR(50)  UNIQUE NOT NULL,
+    correo          VARCHAR(150) UNIQUE NOT NULL,
+    password        VARCHAR(255) NOT NULL,
+    rol             VARCHAR(20)  NOT NULL CHECK (rol IN ('alumno','maestro','escuela')),
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE alumno (
-    id_usuario        INTEGER PRIMARY KEY REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    id_usuario       INTEGER PRIMARY KEY REFERENCES usuario(id_usuario) ON DELETE CASCADE,
     codigo_estudiante VARCHAR(50),
     edad              INTEGER,
     telefono          VARCHAR(20),
@@ -24,27 +24,31 @@ CREATE TABLE maestro (
     experiencia  VARCHAR(255),
     precio       NUMERIC(10,2),
     ubicacion    VARCHAR(255),
+    latitud      NUMERIC(10, 8),
+    longitud     NUMERIC(11, 8),
     telefono     VARCHAR(20),
-    red_social VARCHAR(100),
+    red_social   VARCHAR(100),
     descripcion  TEXT,
     dias         VARCHAR(100),
     foto         VARCHAR(255)
 );
 
 CREATE TABLE escuela (
-    id_usuario         INTEGER PRIMARY KEY REFERENCES usuario(id_usuario) ON DELETE CASCADE,
-    nombre_escuela     VARCHAR(150),
-    direccion          VARCHAR(255),
-    deporte            VARCHAR(100),
-    deportes_ofrecidos TEXT,
-    precio             NUMERIC(10,2),
-    mensualidad        NUMERIC(10,2),
-    ubicacion          VARCHAR(255),
-    telefono           VARCHAR(20),
-red_social VARCHAR(100),
-    descripcion        TEXT,
-    dias               VARCHAR(100),
-    foto               VARCHAR(255)
+    id_usuario          INTEGER PRIMARY KEY REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    nombre_escuela      VARCHAR(150),
+    direccion           VARCHAR(255),
+    deporte             VARCHAR(100),
+    deportes_ofrecidos  TEXT,
+    precio              NUMERIC(10,2),
+    mensualidad         NUMERIC(10,2),
+    ubicacion           VARCHAR(255),
+    latitud             NUMERIC(10, 8),
+    longitud            NUMERIC(11, 8),
+    telefono            VARCHAR(20),
+    red_social          VARCHAR(100),
+    descripcion         TEXT,
+    dias                VARCHAR(100),
+    foto                VARCHAR(255)
 );
 
 CREATE TABLE favorito (
